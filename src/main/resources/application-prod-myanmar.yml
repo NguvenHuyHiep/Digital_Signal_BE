@@ -1,0 +1,36 @@
+# App custom configs
+dsd-config:
+  jwt:
+    secret: soUicqC3yUtp0lq1st57RVt5g36048StY291PwPIMyI=
+    expiration: 86400000
+  minio:
+    endpoint: http://103.23.135.83:9000
+    username: lpdev
+    password: Abcd1234
+    bucket: adview
+    access-key: HQymTheigpfCzMO845ucDjy7eemsZRWd
+    secret-key: 6h8xlNKMx7oHCNJQ17Ahj3BZypwA7vzJ
+  mail:
+    subject: "OTP for authentication in GoldenView"
+    content: "Do not send this OTP to anyone for security protection. Your otp is: "
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: goldenview@cxview.ai
+    password: cxview@2025
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  datasource:
+    url: jdbc:postgresql://103.23.135.83:5432/adview
+    username: postgres
+    password: QRSsos5aKb
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate.ddl-auto: update
+    show-sql: false

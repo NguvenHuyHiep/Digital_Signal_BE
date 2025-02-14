@@ -1,0 +1,13 @@
+# Stage 1: Build the application with Maven
+FROM maven:3.8.2-openjdk-17 AS build
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Maven POM file
+COPY pom.xml .
+
+# Copy the source code
+
+# Build the application with Maven and skip tests
+RUN mvn dependency:resolve

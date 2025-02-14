@@ -1,0 +1,36 @@
+# App custom configs
+dsd-config:
+  jwt:
+    secret: soUicqC3yUtp0lq1st57RVt5g36048StY291PwPIMyI=
+    expiration: 86400000
+  minio:
+    endpoint: http://localhost:9000
+    username: lpdev
+    password: Abcd1234
+    bucket: dsd
+    access-key: hum4ag5K2Lq5dzF3T3nc
+    secret-key: pVSiNZ11N7hnnMSJPwNHT7jMMkKYTJiJhqAW0Ww8
+  mail:
+    subject: "OTP for authentication in GoldenView"
+    content: "Do not send this OTP to anyone for security protection. Your otp is: "
+
+spring:
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    username: nvanthanh15102003@gmail.com
+    password: kkgrsjbencndquji
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  datasource:
+    url: jdbc:postgresql://127.0.0.1:5432/dsd
+    username: lpdev
+    password: Abcd1234
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate.ddl-auto: update
+    show-sql: true

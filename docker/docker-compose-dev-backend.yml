@@ -1,0 +1,30 @@
+version: "3.8"
+services:
+  backend:
+    image: aninfosys.asia:8082/lpdev/dsd/dsd-backend-dev:latest
+    deploy:
+      restart_policy:
+        condition: any
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == vmi888571
+    environment:
+      _JAVA_OPTIONS: "-Xms30m -Xmx1500m"
+      SPRING_PROFILES_ACTIVE: "dev"
+    ports:
+      - "8079:8080"
+    volumes:
+      - backend_logs:/app/logs
+    networks:
+      - dsd_internal
+      - dsd_external
+
+networks:
+  dsd_internal:
+  dsd_external:
+    external: true
+    name: "anfo"
+
+volumes:
+  backend_logs:

@@ -1,0 +1,24 @@
+version: "3.8"
+
+services:
+  backend:
+    image: aninfosys.asia:8082/lpdev/dsd/dsd-backend-staging:latest
+    environment:
+      _JAVA_OPTIONS: "-Xms30m -Xmx1500m"
+      SPRING_PROFILES_ACTIVE: "staging"
+    ports:
+      - "8078:8080"
+    volumes:
+      - backend_logs:/app/logs
+    networks:
+      - dsd_internal
+      - dsd_external
+
+networks:
+  dsd_internal:
+  dsd_external:
+    external: true
+    name: "anfo"
+
+volumes:
+  backend_logs:

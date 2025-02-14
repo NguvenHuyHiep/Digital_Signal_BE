@@ -1,0 +1,15 @@
+version: "3.8"
+services:
+  backend:
+    image: dsd-dev-local:latest
+    container_name: dsd-dev-local
+    environment:
+      _JAVA_OPTIONS: "-Xms512m -Xmx1024m -XX:+UseG1GC"
+      SPRING_PROFILES_ACTIVE: "devlocal"
+    ports:
+      - "8080:8080"
+    volumes:
+      - backend_logs:/app/logs
+
+volumes:
+  backend_logs:

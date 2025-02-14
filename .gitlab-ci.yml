@@ -1,0 +1,151 @@
+stages:
+#  - build-base-dev
+#  - deploy-dev
+#  - build-base-staging
+#  - deploy-staging
+  - build-base-uat
+  - deploy-uat
+  - build-base-prod-myanmar
+  - deploy-prod-myanmar
+#
+#build-base-dev:
+#  stage: build-base-dev
+#  only:
+#    refs:
+#      - develop
+#    changes:
+#      - pom.xml
+#  tags:
+#    - dsd
+#  before_script:
+#    - docker login http://aninfosys.asia:8082 -u bouser -p Bo@123!@#
+#  script:
+#    - echo "--------------------Run CI for commit $CI_COMMIT_SHA --------------------"
+#    - echo "====================== BUILD BASE DOCKER IMAGE FOR DEV ON COMMIT $CI_COMMIT_TAG========================="
+#    - docker build -t aninfosys.asia:8082/lpdev/dsd/dsd-backend-base-dev:latest  -f ./docker/Dockerfile_dev .
+#    - echo "====================== PUSH DOCKER IMAGE TO REPOSITORY ========================="
+#    - docker push aninfosys.asia:8082/lpdev/dsd/dsd-backend-base-dev:latest
+#
+#deploy-dev:
+#  stage: deploy-dev
+#  tags:
+#    - dsd
+#  only:
+#    refs:
+#      - develop
+#  before_script:
+#    - docker login http://aninfosys.asia:8082 -u bouser -p Bo@123!@#
+#  script:
+#    - echo "--------------------Run CI for commit $CI_COMMIT_SHA --------------------"
+#    - echo "====================== BUILD DOCKER IMAGE FOR DEV ON COMMIT $CI_COMMIT_TAG========================="
+#    - docker build -t aninfosys.asia:8082/lpdev/dsd/dsd-backend-dev:latest  -f ./docker/Dockerfile_dev .
+#    - echo "====================== PUSH DOCKER IMAGE FOR DEV ON COMMIT $CI_COMMIT_TAG========================="
+#    - docker push aninfosys.asia:8082/lpdev/dsd/dsd-backend-dev:latest
+#    - echo "====================== DEPLOY BACKEND FOR DEV ON COMMIT $CI_COMMIT_TAG========================="
+#    - docker stack deploy dsd_dev --resolve-image always --compose-file docker/docker-compose-dev-backend.yml --with-registry-auth
+#
+#
+#build-base-staging:
+#  stage: build-base-staging
+#  only:
+#    refs:
+#      - staging
+#    changes:
+#      - pom.xml
+#  tags:
+#    - dsd
+#  before_script:
+#    - docker login http://aninfosys.asia:8082 -u bouser -p Bo@123!@#
+#  script:
+#    - echo "--------------------Run CI for commit $CI_COMMIT_SHA --------------------"
+#    - echo "====================== BUILD BASE DOCKER IMAGE FOR STAGING ON COMMIT $CI_COMMIT_TAG========================="
+#    - docker build -t aninfosys.asia:8082/lpdev/dsd/dsd-backend-base-staging:latest  -f ./docker/Dockerfile_base_staging .
+#    - echo "====================== PUSH DOCKER IMAGE TO REPOSITORY ========================="
+#    - docker push aninfosys.asia:8082/lpdev/dsd/dsd-backend-base-staging:latest
+#
+#deploy-staging:
+#  stage: deploy-staging
+#  tags:
+#    - dsd
+#  only:
+#    refs:
+#      - staging
+#  before_script:
+#    - docker login http://aninfosys.asia:8082 -u bouser -p Bo@123!@#
+#  script:
+#    - echo "--------------------Run CI for commit $CI_COMMIT_SHA --------------------"
+#    - echo "====================== BUILD DOCKER IMAGE FOR STAGING ON COMMIT $CI_COMMIT_TAG========================="
+#    - docker build -t aninfosys.asia:8082/lpdev/dsd/dsd-backend-staging:latest  -f ./docker/Dockerfile_staging .
+#    - echo "====================== PUSH DOCKER IMAGE FOR STAGING ON COMMIT $CI_COMMIT_TAG========================="
+#    - docker push aninfosys.asia:8082/lpdev/dsd/dsd-backend-staging:latest
+#    - echo "====================== DEPLOY BACKEND FOR STAGING ON COMMIT $CI_COMMIT_TAG========================="
+#    - docker stack deploy dsd_staging --resolve-image always --compose-file docker/docker-compose-staging-backend.yml --with-registry-auth
+
+build-base-uat:
+  stage: build-base-uat
+  only:
+    refs:
+      - uat
+    changes:
+      - pom.xml
+  tags:
+    - dsd
+  before_script:
+    - docker login adview.cxview.ai -u AdView -p adview@2023
+  script:
+    - echo "--------------------Run CI for commit $CI_COMMIT_SHA --------------------"
+    - echo "====================== BUILD BASE DOCKER IMAGE FOR UAT ON COMMIT $CI_COMMIT_TAG========================="
+    - docker build -t adview.cxview.ai/lpdev/dsd/dsd-backend-base-uat:latest  -f ./docker/Dockerfile_base .
+    - echo "====================== PUSH DOCKER IMAGE TO REPOSITORY ========================="
+    - docker push adview.cxview.ai/lpdev/dsd/dsd-backend-base-uat:latest
+
+deploy-uat:
+  stage: deploy-uat
+  tags:
+    - dsd
+  only:
+    refs:
+      - uat
+  before_script:
+    - docker login adview.cxview.ai -u AdView -p adview@2023
+  script:
+    - echo "--------------------Run CI for commit $CI_COMMIT_SHA --------------------"
+    - echo "====================== BUILD DOCKER IMAGE FOR UAT ON COMMIT $CI_COMMIT_TAG========================="
+    - docker build -t adview.cxview.ai/lpdev/dsd/dsd-backend-uat:latest  -f ./docker/Dockerfile_uat .
+    - echo "====================== PUSH DOCKER IMAGE FOR UAT ON COMMIT $CI_COMMIT_TAG========================="
+    - docker push adview.cxview.ai/lpdev/dsd/dsd-backend-uat:latest
+
+build-base-prod-myanmar:
+  stage: build-base-prod-myanmar
+  only:
+    refs:
+      - prod-myanmar
+    changes:
+      - pom.xml
+  tags:
+    - dsd
+  before_script:
+    - docker login adview.cxview.ai -u AdView -p adview@2023
+  script:
+    - echo "--------------------Run CI for commit $CI_COMMIT_SHA --------------------"
+    - echo "====================== BUILD BASE DOCKER IMAGE FOR PROD-MYANMAR ON COMMIT $CI_COMMIT_TAG========================="
+    - docker build -t adview.cxview.ai/lpdev/dsd/dsd-backend-base-prod-myanmar:latest  -f ./docker/Dockerfile_base .
+    - echo "====================== PUSH DOCKER IMAGE FOR PROD-MYANMAR TO REPOSITORY ========================="
+    - docker push adview.cxview.ai/lpdev/dsd/dsd-backend-base-prod-myanmar:latest
+
+deploy-prod-myanmar:
+  stage: deploy-prod-myanmar
+  tags:
+    - dsd
+  only:
+    refs:
+      - prod-myanmar
+  before_script:
+    - docker login adview.cxview.ai -u AdView -p adview@2023
+  script:
+    - echo "--------------------Run CI for commit $CI_COMMIT_SHA --------------------"
+    - echo "====================== BUILD DOCKER IMAGE FOR PROD-MYANMAR ON COMMIT $CI_COMMIT_TAG========================="
+    - docker build -t adview.cxview.ai/lpdev/dsd/dsd-backend-prod-myanmar:latest  -f ./docker/Dockerfile_prod_myanmar .
+    - echo "====================== PUSH DOCKER IMAGE FOR PROD-MYANMAR ON COMMIT $CI_COMMIT_TAG========================="
+    - docker push adview.cxview.ai/lpdev/dsd/dsd-backend-prod-myanmar:latest
+

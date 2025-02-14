@@ -1,0 +1,37 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:16.0
+    container_name: dsd_postgres
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: lpdev
+      POSTGRES_PASSWORD: Abcd1234
+      POSTGRES_DB: dsd
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - dsd_internal
+
+  backend:
+    image: adview.cxview.ai/lpdev/dsd/dsd-backend-dev:latest
+    environment:
+      _JAVA_OPTIONS: "-Xms30m -Xmx1500m"
+      SPRING_PROFILES_ACTIVE: "uat"
+    volumes:
+      - backend_logs:/app/logs
+    networks:
+      - dsd_internal
+      - dsd_external
+
+networks:
+  dsd_internal:
+  dsd_external:
+    external: true
+
+volumes:
+  postgres_data:
+  minio_data:
+  backend_logs:

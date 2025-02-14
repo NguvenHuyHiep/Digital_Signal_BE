@@ -1,0 +1,31 @@
+# Stage 1: Build the application with Maven
+FROM aninfosys.asia:8082/lpdev/dsd/dsd-backend-base-staging:latest AS build
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the Maven POM file
+COPY pom.xml .
+
+# Copy the source code
+COPY src ./src
+
+# Build the application with Maven and skip tests
+RUN mvn clean install -DskipTests
+
+# Stage 2: Run the Spring Boot application
+FROM openjdk:17
+
+# Set the working directory in the container
+WORKDIR /app
+
+# Copy the built JAR file from the previous stage
+COPY --from=build /app/target/dsd-0.0.1-SNAPSHOT.jar .
+
+EXPOSE 8080
+
+# Set any environment variables if needed (e.g., spring profiles)
+ENV SPRING_PROFILES_ACTIVE=staging
+
+# Command to run the Spring Boot application
+CMD ["java", "-jar", "dsd-0.0.1-SNAPSHOT.jar"]

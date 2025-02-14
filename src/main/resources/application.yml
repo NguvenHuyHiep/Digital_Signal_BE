@@ -1,0 +1,15 @@
+server:
+  # fix swagger unable to call API due to http and https
+  forward-headers-strategy: framework
+  port: 8080
+  servlet:
+    context-path: /dsd
+
+spring:
+  profiles:
+    active:
+      - "@spring.profiles.active@"
+    include:
+      - "common"
+
+

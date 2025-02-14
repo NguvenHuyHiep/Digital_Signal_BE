@@ -1,0 +1,35 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:16.0
+    container_name: dsd_postgres
+    restart: unless-stopped
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_USER: lpdev
+      POSTGRES_PASSWORD: Abcd1234
+      POSTGRES_DB: dsd
+    volumes:
+      - ./postgres_data:/var/lib/postgresql/data
+
+  adminer:
+    image: adminer:4.8.1-standalone
+    container_name: dsd_adminer
+    restart: unless-stopped
+    ports:
+      - "8079:8080"
+
+  minio:
+    image: minio/minio
+    container_name: dsd_minio
+    command: server /data --console-address ":9090"
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9090:9090"
+    environment:
+      MINIO_ROOT_USER: lpdev
+      MINIO_ROOT_PASSWORD: Abcd1234
+    volumes:
+      - ./minio_data:/data

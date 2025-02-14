@@ -1,0 +1,45 @@
+version: "3.8"
+services:
+  postgres:
+    image: postgres:16.0
+    deploy:
+      restart_policy:
+        condition: any
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == vmi888571
+    container_name: dsd_postgres
+    restart: unless-stopped
+    ports:
+      - "5433:5432"
+    environment:
+      POSTGRES_USER: lpdev
+      POSTGRES_PASSWORD: Abcd1234
+      POSTGRES_DB: dsd
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+  minio:
+    image: minio/minio
+    deploy:
+      restart_policy:
+        condition: any
+      replicas: 1
+      placement:
+        constraints:
+          - node.hostname == vmi888571
+    container_name: dsd_minio
+    command: server /data --console-address ":9090"
+    restart: always
+    ports:
+      - "9001:9000"
+      - "9091:9090"
+    environment:
+      MINIO_ROOT_USER: lpdev
+      MINIO_ROOT_PASSWORD: Abcd1234
+    volumes:
+      - minio_data:/data
+volumes:
+  postgres_data:
+  minio_data:
